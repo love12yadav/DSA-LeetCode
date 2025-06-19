@@ -1,0 +1,21 @@
+Leetcode-2966. Divide Array Into Arrays With Max Difference
+class Solution {
+    public int[][] divideArray(int[] nums, int k) {
+        int n = nums.length;
+        if(n%3!=0){
+            return new int[0][0];
+        }
+        Arrays.sort(nums);
+        int z=0;
+        int[][] res  = new int[n/3][3];
+        for(int i=0;i<n/3;i++){
+            for(int j=0;j<3;j++){
+                if(z<n-1 && (z+3)%3==0 && nums[z+2]-nums[z]>k){
+                    return new int[0][0];
+                }
+                res[i][j]=nums[z++];
+            }
+        }
+        return res;
+    }
+}
