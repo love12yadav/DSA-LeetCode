@@ -1,0 +1,35 @@
+403. Frog Jump
+
+class Solution {
+    public boolean canCross(int[] stones) {
+        int n = stones.length;
+        HashMap<Integer,Integer> map = new HashMap<>();
+        for (int i=0;i<n;i++) {
+            map.put(stones[i], i);
+        }
+
+        Boolean[][] dp = new Boolean[n+1][n+1];
+        return f(stones,0,0,dp,map);
+    }
+    public boolean f(int[] stones,int i,int jump,Boolean[][] dp, HashMap<Integer,Integer> map){
+        int n = stones.length;
+        if(i==n-1){
+            return true;
+        }
+        if (dp[i][jump] != null) {
+            return dp[i][jump];
+        }
+        for(int k=jump-1;k<=jump+1;k++){
+            if(k>0){
+                int gap = stones[i] + k;
+                if(map.containsKey(gap)){
+                    if(f(stones,map.get(gap),k,dp,map)){
+                        return dp[i][jump] =true;
+                    }
+                }
+
+            }    
+        }
+        return dp[i][jump] = false;
+    }
+}
